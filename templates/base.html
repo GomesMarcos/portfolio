@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/htmx.org@1.9.11" integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0" crossorigin="anonymous"></script>
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" />
+    <link href="{% static 'img/apple-touch-icon.png' %}" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <title>
+      GomeSystem{% block title %}
+
+      {% endblock %}
+    </title>
+  </head>
+  <body class="min-h-screen">
+    {% include 'includes/messages.html' %}
+
+    {% block layout %}
+
+    {% endblock %}
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'js/daisyui.js' %}"></script>
+    <script src="{% static 'js/daisyui-theme.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

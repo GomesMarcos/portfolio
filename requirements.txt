@@ -1,2 +1,4 @@
 Django==5.0.2
 python-decouple
+django-unfold
+ruff
