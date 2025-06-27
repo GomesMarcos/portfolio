@@ -1,31 +1,26 @@
-from django.core.validators import (
-    MaxValueValidator,
-    MinLengthValidator,
-    MinValueValidator,
-)
+from django.core.exceptions import ValidationError
+from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
-
-def validate_is_current(date):
-    return not bool(date)
-
-
-def set_is_current_by_end_date(end_date):
-    return not bool(end_date)
+from core.models import TimeRange
 
 
 def get_str_time_range(obj):
-    return f"( from {obj.start_date} to {obj.end_date or 'now'})"
+    return f'from {obj.start_date} to {obj.end_date or "now"}'
 
 
 class Stack(models.Model):
-    name = models.CharField(_("Name"), max_length=50, unique=True)
-    is_current_stack = models.BooleanField(_("Is current stack"), default=True)
+    name = models.CharField(_('Name'), max_length=50, unique=True)
+    is_current_stack = models.BooleanField(_('Is current stack'), default=True)
+    time_range = models.ManyToManyField(
+        TimeRange, verbose_name=_('Time Range'), related_name='stack'
+    )
 
-    # is_current_stack = models.BooleanField(_("Is Current Stack"),
-    #    default=set_is_current_by_end_date(time_range[-1].end_date))
+    class Meta:
+        verbose_name = _('Stack')
+        verbose_name_plural = _('Stacks')
 
     def __str__(self):
         return self.name
@@ -33,55 +28,59 @@ class Stack(models.Model):
     @property
     def get_time_worked(self):
         MONTHS_IN_YEAR = 12
-        worked_months_years = {}
+        worked_months_years = {'years': 0, 'months': 0, 'range': []}
         for time_range in self.time_range.all():
             start = time_range.start_date
             end = time_range.end_date or timezone.now().date()
             delta_months = (end.year - start.year) * MONTHS_IN_YEAR + (end.month - start.month)
-            worked_months_years |= {
-                "years": (delta_months % MONTHS_IN_YEAR) - 1,
-                "months": int(delta_months / MONTHS_IN_YEAR),
-                "range": get_str_time_range(time_range),
-            }
+            if worked_months_years.get('stack') == self.name:
+                worked_months_years['years'] += delta_months // MONTHS_IN_YEAR
+                worked_months_years['months'] += delta_months % MONTHS_IN_YEAR
+            else:
+                worked_months_years |= {
+                    'stack': self.name,
+                    'years': delta_months // MONTHS_IN_YEAR,
+                    'months': delta_months % MONTHS_IN_YEAR,
+                }
+            worked_months_years['range'].append(get_str_time_range(time_range))
+
+        if worked_months_years['months'] >= MONTHS_IN_YEAR:
+            calculated_months = worked_months_years['months'] % MONTHS_IN_YEAR
+            worked_months_years['years'] += calculated_months + 1
+            worked_months_years['months'] = calculated_months
+        worked_months_years.pop('stack')
+        worked_months_years['range'] = _(', '.join(worked_months_years['range']))
+
         return worked_months_years
 
 
-class StackTimeRange(models.Model):
-    start_date = models.DateField(_("Start Date"), validators=[MaxValueValidator(timezone.now().date())])
-    end_date = models.DateField(
-        _("End Date"),
-        validators=[MinValueValidator(start_date)],
-        blank=True,
-        null=True,
-    )
-    stack = models.ForeignKey(
-        Stack,
-        verbose_name=_("Stack"),
-        related_name="time_range",
-        on_delete=models.CASCADE,
-    )
-
-    def __str__(self):
-        return f"{self.stack.name} {get_str_time_range(self)}"
-
-
 class Job(models.Model):
-    title = models.CharField(_("Title"), max_length=50, validators=[MinLengthValidator(2)])
-    start_date = models.DateField(
-        _("Start Date"),
-        validators=[MaxValueValidator(timezone.now().date())],
+    title = models.CharField(_('Title'), max_length=50, validators=[MinLengthValidator(2)])
+    description = models.TextField(_('Description'), default='')
+    url = models.URLField(_('Job URL'), max_length=200, blank=True, null=True)
+    logo = models.URLField(_('Company Logo URL'), max_length=500, blank=True, null=True)
+    stack = models.ManyToManyField(Stack, verbose_name=_('Stack'))
+    is_current_job = models.BooleanField(_('Is Current Job'), default=False)
+    time_range = models.ForeignKey(
+        TimeRange, verbose_name=_('Time Range'), on_delete=models.PROTECT, related_name='job'
     )
-    end_date = models.DateField(
-        _("End Date"),
-        validators=[MinValueValidator(start_date), MaxValueValidator(timezone.now().date())],
-        blank=True,
-        null=True,
-    )
-    description = models.TextField(_("Description"), default='')
-    url = models.URLField(_("Job URL"), max_length=200)
-    logo = models.URLField(_("Job Logo"), max_length=500, blank=True, null=True)
-    stack = models.ManyToManyField(Stack, verbose_name=_("Stack"))
-    is_current_job = models.BooleanField(_("Is Current Job"), default=validate_is_current(end_date))
 
     def __str__(self):
         return self.title
+
+    def clean(self):
+        # Se is_current_job for True, end_date deve ser nula
+        if self.is_current_job and self.time_range.end_date:
+            raise ValidationError({
+                'end_date': _('Se o trabalho é atual, a data de término deve estar vazia.')
+            })
+
+        # Se is_current_job for False, end_date deve ser preenchida
+        if not self.is_current_job and not self.time_range.end_date:
+            raise ValidationError({
+                'end_date': _('Se o trabalho não é atual, a data de término deve ser preenchida.')
+            })
+
+    class Meta:
+        verbose_name = _('Job')
+        verbose_name_plural = _('Jobs')

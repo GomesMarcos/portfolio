@@ -1498,6 +1498,9 @@
   .text-neutral-content {
     color: var(--color-neutral-content);
   }
+  .text-primary {
+    color: var(--color-primary);
+  }
   .text-white {
     color: var(--color-white);
   }

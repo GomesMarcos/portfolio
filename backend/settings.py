@@ -30,7 +30,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
 
 # Application definition
 
-INSTALLED_APPS = [
+UNFOLD_APPS = [
     'unfold',  # before django.contrib.admin
     'unfold.contrib.filters',  # optional, if special filters are needed
     'unfold.contrib.forms',  # optional, if special form elements are needed
@@ -38,21 +38,27 @@ INSTALLED_APPS = [
     'unfold.contrib.import_export',  # optional, if django-import-export package is used
     'unfold.contrib.guardian',  # optional, if django-guardian package is used
     'unfold.contrib.simple_history',  # optional, if django-simple-history package is used
+]
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+PROJECT_APPS = [
+    'core',
     'jobs',
     'social',
 ]
 
+INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + PROJECT_APPS
 
 if DEBUG:
-    INSTALLED_APPS += [
-        'debug_toolbar',
-    ]
+    INSTALLED_APPS += ['debug_toolbar', 'django_extensions']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -278,25 +284,33 @@ UNFOLD = {
                     },
                     {
                         'title': _('Social Medias'),
-                        'icon': 'person_add',
+                        'icon': 'share',
                         'link': reverse_lazy('admin:social_socialmedia_changelist'),
+                    },
+                ],
+            },
+            {
+                'title': _('Jobs'),
+                'separator': True,  # Top border
+                'collapsible': True,  # Collapsible group of links
+                'items': [
+                    {
+                        'title': _('Jobs'),
+                        'icon': 'assignment_ind',
+                        'link': reverse_lazy('admin:jobs_job_changelist'),
+                    },
+                    {
+                        'title': _('Stacks'),
+                        'icon': 'usb',
+                        'link': reverse_lazy('admin:jobs_stack_changelist'),
+                    },
+                    {
+                        'title': _('Time Ranges'),
+                        'icon': 'calendar_month',
+                        'link': reverse_lazy('admin:core_timerange_changelist'),
                     },
                 ],
             },
         ],
     },
-    # 'TABS': [
-    #     {
-    #         'models': [
-    #             'app_label.model_name_in_lowercase',
-    #         ],
-    #         'items': [
-    #             {
-    #                 'title': _('Your custom title'),
-    #                 'link': reverse_lazy('admin:app_label_model_name_changelist'),
-    #                 'permission': 'sample_app.permission_callback',
-    #             },
-    #         ],
-    #     },
-    # ],
 }
