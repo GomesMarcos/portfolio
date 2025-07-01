@@ -1,5 +1,7 @@
 {% load i18n %}
 {% block content %}
-  {% trans '<h2 class="h2">About us</h2>' %}
-  {{ social_info.about_us }}
+  {% if social_info %}
+    {% trans '<h2 class="h2">About us</h2>' %}
+    {{ social_info.about_us }}
+  {% endif %}
 {% endblock %}

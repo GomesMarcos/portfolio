@@ -1225,17 +1225,6 @@
       }
     }
   }
-  .card-body {
-    display: flex;
-    flex: auto;
-    flex-direction: column;
-    gap: calc(0.25rem * 2);
-    padding: var(--card-p, 1.5rem);
-    font-size: var(--card-fs, 0.875rem);
-    :where(p) {
-      flex-grow: 1;
-    }
-  }
   .alert {
     display: grid;
     align-items: center;
@@ -1400,6 +1389,10 @@
     border-top-left-radius: var(--radius-lg);
     border-top-right-radius: var(--radius-lg);
   }
+  .rounded-b-lg {
+    border-bottom-right-radius: var(--radius-lg);
+    border-bottom-left-radius: var(--radius-lg);
+  }
   .bg-base-100 {
     background-color: var(--color-base-100);
   }
@@ -1414,6 +1407,9 @@
   }
   .bg-orange-300 {
     background-color: var(--color-orange-300);
+  }
+  .bg-primary {
+    background-color: var(--color-primary);
   }
   .fill-current {
     fill: currentcolor;
@@ -1480,9 +1476,6 @@
   }
   .text-neutral-content {
     color: var(--color-neutral-content);
-  }
-  .text-primary {
-    color: var(--color-primary);
   }
   .text-white {
     color: var(--color-white);
@@ -1600,12 +1593,24 @@
   font-weight: 600;
   margin: auto;
 }
-.time-badge {
+.time-badge, .stack-badge {
   position: absolute;
   width: 100%;
   left: 0;
-  top: 0;
   text-align: center;
+}
+.time-badge {
+  top: 0;
+}
+.stack-badge {
+  bottom: 0;
+}
+.job-title {
+  position: relative;
+  bottom: 50px;
+  margin: auto;
+  left: 0;
+  right: 0;
 }
 @layer base {
   :where(:root),:root:has(input.theme-controller[value=light]:checked),[data-theme=light] {

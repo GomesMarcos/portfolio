@@ -101,10 +101,26 @@
     margin: auto;
 }
 
-.time-badge {
+.time-badge,
+.stack-badge {
     position: absolute;
     width: 100%;
     left: 0;
-    top: 0;
     text-align: center;
+}
+
+.time-badge {
+    top: 0;
+}
+
+.stack-badge {
+    bottom: 0;
+}
+
+.job-title {
+    position: relative;
+    bottom: 50px;
+    margin: auto;
+    left: 0;
+    right: 0;
 }
