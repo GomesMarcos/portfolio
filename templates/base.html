@@ -22,6 +22,9 @@
 
       {% endblock %}
     </title>
+    {% if debug %}
+      {% include 'includes/livereload.html' %}
+    {% endif %}
   </head>
   <body class="min-h-screen">
     {% include 'includes/messages.html' %}
