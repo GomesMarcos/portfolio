@@ -28,6 +28,7 @@
     --color-warning-content: oklch(41% 0.112 45.904);
     --color-error: oklch(71% 0.194 13.428);
     --color-error-content: oklch(27% 0.105 12.094);
+    --color-orange-logo: #F37A26;
     --radius-selector: 0.5rem;
     --radius-field: 0.25rem;
     --radius-box: 0.25rem;
@@ -64,6 +65,7 @@
     --color-warning-content: oklch(41% 0.112 45.904);
     --color-error: oklch(71% 0.194 13.428);
     --color-error-content: oklch(27% 0.105 12.094);
+    --color-orange-logo: oklch(0.7074 0.173 49.79);
     --radius-selector: 0.5rem;
     --radius-field: 0.25rem;
     --radius-box: 0.5rem;
@@ -72,4 +74,37 @@
     --border: 1px;
     --depth: 1;
     --noise: 0;
+}
+
+/* Customs */
+.min-h-screen {
+    min-height: 100dvh;
+}
+
+.hero-overlay {
+    background-color: var(--color-primary);
+
+    @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-primary) 75%, transparent);
+    }
+}
+
+.text-orange {
+    color: var(--color-orange-logo);
+}
+
+
+/* Job's Cards */
+.card-title {
+    font-size: 1.9rem;
+    font-weight: 600;
+    margin: auto;
+}
+
+.time-badge {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
 }

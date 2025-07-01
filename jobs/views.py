@@ -11,8 +11,11 @@ from .models import Job, Stack
 @csrf_exempt
 def get_job_by_title_or_stack(request):
     query = request.POST.get('search', '')
-    jobs = Job.objects.filter(title__icontains=query) | Job.objects.filter(
-        stack__name__icontains=query
+    jobs = (
+        Job.objects.filter(title__icontains=query)
+        | Job.objects.filter(stack__name__icontains=query)
+        | Job.objects.filter(time_range__start_date__icontains=query)
+        | Job.objects.filter(time_range__end_date__icontains=query)
     )
     jobs = jobs.distinct().order_by('-time_range__start_date')
     html = render_to_string('partials/job_search_results.html', {'jobs': jobs})
