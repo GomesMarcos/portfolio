@@ -1,18 +1,13 @@
-{% block title %}
-  - Jobs
-{% endblock %}
-
 {% block jobs %}
   <section id="jobs">
     <div class="container">
-      <div class="section-title">
-        <h2>Portfólio</h2>
-      </div>
-      <ul>
-        {% for job in jobs %}
-          <li>{{ job }}</li>
-        {% endfor %}
-      </ul>
+      <h3>
+        Personal and professional experience
+        <span class="htmx-indicator"><span class="material-symbols-outlined">search</span></span>
+      </h3>
+      {% csrf_token %}
+      <input class="input input-bordered md:w-auto my-3" type="text" name="search" placeholder="Type to search job/stack" hx-post="/jobs/get_job_by_title_or_stack" hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load" hx-target="#search-results" hx-indicator=".htmx-indicator" />
+      <ul class="timeline timeline-vertical" id="search-results"></ul>
     </div>
   </section>
 {% endblock %}

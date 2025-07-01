@@ -1,6 +1,12 @@
+{% load static %}
 <div class="navbar bg-base-100 shadow-sm px-10">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl">daisyUI</a>
+    <a class="text-xl">
+      <div class="flex items-center">
+        <img class="h-8 w-auto" src="{% static 'img/logo-nav.png' %}" alt="Logo" />
+        <span class="text-base">Gome</span><span class="text-accent">Systems</span>
+      </div>
+    </a>
   </div>
   <div class="flex gap-2 items-center">
     <label class="flex cursor-pointer gap-2">

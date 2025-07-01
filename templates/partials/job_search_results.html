@@ -1,0 +1,23 @@
+{% for job in jobs %}
+  <li>
+    <div class="card w-96 bg-base-100 shadow-xl timeline-{{ forloop.counter0|divisibleby:2|yesno:'start,end' }}">
+      <figure class="aspect-square">
+        <img class="bg-gray-500" src="{{ job.logo }}" alt="{{ job }} Logo" />
+      </figure>
+
+      <div class="card-body">
+        <h2 class="card-title">{{ job }}</h2>
+        <p>
+          {% for stack in job.stack.all %}
+            {{ stack }}
+          {% endfor %}
+        </p>
+        <div class="card-actions justify-end">
+          <time class="font-mono italic text-lg p-2 text-white alert alert-info">{{ job.time_range.start_date|date:'m/Y' }} - {{ job.time_range.end_date|date:'m/Y' }}</time>
+        </div>
+      </div>
+    </div>
+  </li>
+{% empty %}
+  <li>Nenhum resultado encontrado.</li>
+{% endfor %}
