@@ -7,10 +7,42 @@ from django.views.generic import TemplateView
 from .models import Job, Stack
 
 
+def get_worked_years():
+    """
+    Returns a list of unique years (descending) in which jobs have a start date.
+
+    Returns:
+        list: List of years (int) ordered from most recent to oldest.
+    """
+    years = list(
+        Job.objects.values_list('time_range__start_date__year', flat=True)
+        .distinct()
+        .order_by('-time_range__start_date__year')
+    )
+    years += list(
+        Job.objects.values_list('time_range__end_date__year', flat=True)
+        .distinct()
+        .order_by('-time_range__end_date__year')
+    )
+    return set(years)
+
+
 @require_POST
 @csrf_exempt
 def get_job_by_title_or_stack(request):
+    """
+    Handles job search/filter requests by title, stack, or year.
+    Returns a rendered HTML partial with the filtered jobs and available years.
+
+    Args:
+        request: The HTTP request object containing search and year parameters.
+
+    Returns:
+        HttpResponse: Rendered HTML with filtered jobs and year filter buttons.
+    """
     query = request.POST.get('search', '')
+    year = request.POST.get('year', '')
+
     jobs = (
         Job.objects.filter(title__icontains=query)
         | Job.objects.filter(stack__name__icontains=query)
@@ -18,6 +50,12 @@ def get_job_by_title_or_stack(request):
         | Job.objects.filter(time_range__end_date__icontains=query)
     )
     jobs = jobs.distinct().order_by('-time_range__start_date')
+    # Filtro por ano, se fornecido
+    if year:
+        jobs = jobs.filter(time_range__start_date__year=year) | jobs.filter(
+            time_range__end_date__year=year
+        )
+
     html = render_to_string('partials/job_search_results.html', {'jobs': jobs})
     return HttpResponse(html)
 

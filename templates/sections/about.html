@@ -1,7 +1,9 @@
 {% load i18n %}
 {% block content %}
-  {% if social_info %}
-    {% trans '<h2 class="h2">About us</h2>' %}
-    {{ social_info.about_us }}
-  {% endif %}
+  <section id="about">
+    {% if social_info %}
+      {% trans '<h2 class="h2">About us</h2>' %}
+      {{ social_info.about_us }}
+    {% endif %}
+  </section>
 {% endblock %}

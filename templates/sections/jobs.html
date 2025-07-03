@@ -1,12 +1,42 @@
-{% block jobs %}
-  <section id="jobs">
-    <div class="container">
-      <h3>
-        Personal and professional experience
-        <span class="htmx-indicator"><span class="material-symbols-outlined">search</span></span>
-      </h3>
-      <input class="input input-bordered md:w-auto my-3" type="text" name="search" placeholder="Type to search job/stack" hx-post="/jobs/get_job_by_title_or_stack" hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load" hx-target="#search-results" hx-indicator=".htmx-indicator" />
-      <ul class="timeline max-md:timeline-compact timeline-vertical items-center" id="search-results"></ul>
+<section id="jobs">
+  <div class="container">
+    <h2 class="font-bold text-xl text-center my-3">Personal and professional experience</h2>
+    <div class="flex w-full justify-start items-center my-2">
+      <div class="job-filter">
+        <label for="text_search">By Job or Stack name:</label>
+        <input id="text_search" class="input input-bordered md:w-auto my-3" type="text" name="search" placeholder="Type to search job/stack" hx-post="/jobs/get_job_by_title_or_stack" hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load" hx-target="#search-results" hx-indicator=".htmx-indicator" />
+      </div>
+      <div class="divider divider-horizontal"></div>
+      <div class="job-filter">
+        <label for="year_search">By Year</label>
+        <div id="year_search" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 mt-2">
+          {% for year in years %}
+            <button 
+              class='btn btn-primary'
+              hx-post="/jobs/get_job_by_title_or_stack"
+              hx-trigger='click'
+              hx-target="#search-results"
+              name="year"
+              value="{{ year }}"
+              type="button"
+              hx-vals='{"year": "{{ year }}"}'
+            >{{ year }}</button>
+          {% empty %}
+            <p class="text-gray-400 col-span-full">Nenhum ano encontrado</p>
+          {% endfor %}
+        </div>
+      </div>
     </div>
-  </section>
-{% endblock %}
+
+    <span class="htmx-indicator flex justify-center">
+      <div class="flex w-[20vw] min-w-[280px] flex-col gap-4">
+        <div class="skeleton h-32 w-full"></div>
+        <div class="skeleton h-4 w-full"></div>
+        <div class="skeleton h-4 w-28"></div>
+        <div class="skeleton h-4 w-full"></div>
+      </div>
+    </span>
+
+    <ul class="timeline max-md:timeline-compact timeline-vertical items-center" id="search-results"></ul>
+  </div>
+</section>
