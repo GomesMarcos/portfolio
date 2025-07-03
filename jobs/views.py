@@ -66,21 +66,22 @@ def get_job_details(request, job_id):
     return HttpResponse(html)
 
 
+def get_jobs_by_stack(request, stack_id):
+    jobs = Job.objects.filter(stack=stack_id).order_by('-time_range__start_date')
+    html = render_to_string('partials/job_search_results.html', {'jobs': jobs})
+    return HttpResponse(html)
+
+
 class StackViewSet(TemplateView):
     """
     API endpoint that allows users to be viewed or edited.
     """
 
-    queryset = Stack.objects.all().order_by('is_current_stack')
+    model = Stack
+    queryset = Stack.objects.all().order_by('name', 'is_current_stack')
+    template_name = 'sections/stack.html'
 
-
-class StackTimeRangeViewSet(TemplateView):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-
-    queryset = (
-        Stack.objects.prefetch_related('time_range')
-        .values('time_range')
-        .order_by('-time_range__start_date')
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stack'] = self.queryset
+        return context
