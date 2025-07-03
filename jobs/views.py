@@ -22,6 +22,12 @@ def get_job_by_title_or_stack(request):
     return HttpResponse(html)
 
 
+def get_job_details(request, job_id):
+    job = Job.objects.get(pk=job_id)
+    html = render_to_string('partials/job_details.html', {'job': job})
+    return HttpResponse(html)
+
+
 class StackViewSet(TemplateView):
     """
     API endpoint that allows users to be viewed or edited.

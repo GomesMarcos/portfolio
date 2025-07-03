@@ -1,0 +1,47 @@
+<div class="modal-box w-full" style="max-width: 64rem; max-height: 90dvh;">
+  <form method="dialog">
+    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+  </form>
+  {% if job %}
+    <div class="text-lg font-bold card-title">
+      <figure class="aspect-square">
+        {% if job.logo %}
+          <img src="{{ job.url_logo }}" alt="{{ job.title }}" height="64" width="64" />
+        {% else %}
+          <img src="https://placehold.co/600x400" alt="Logo para {{ job.title }} não encontrada" height="64" width="64" />
+        {% endif %}
+      </figure>
+
+      <h2>{{ job.title }}</h2>
+    </div>
+    <div class="scroll-hint">
+      <p class="py-4 whitespace-pre-line max-h-[20rem]">{{ job.description }}</p>
+      <div class="mouse">
+        <span></span>
+      </div>
+    </div>
+    <h2 class="font-bold">Stacks:</h2>
+    <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-4 mt-3">
+      {% for stack in job.stack.all %}
+        <div class="bg-base-300 flex flex-col justify-center items-center space-y-4 w-full h-auto p-4 text-center rounded h-full shadow border-2 border-transparent hover:shadow-lg hover:border-blue-500 transition-all duration-300 ease-in-out">
+          <figure class="aspect-square">
+            {% if stack.logo %}
+              <img src="{{ stack.url_logo }}" alt="{{ stack.name }}" height="64" width="64" />
+            {% else %}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-full">
+                <path fill-rule="evenodd" d="M2 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Zm2.22 1.97a.75.75 0 0 0 0 1.06l.97.97-.97.97a.75.75 0 1 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06l-1.5-1.5a.75.75 0 0 0-1.06 0ZM8.75 8.5a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5h-2.5Z" clip-rule="evenodd" />
+              </svg>
+            {% endif %}
+          </figure>
+
+          <p class="font-bold flex justify-center items-center break-words">{{ stack.name }}</p>
+          {% for key, value in stack.get_time_worked.items %}
+            <p>
+              {{ key }}: {{ value }}<br />
+            </p>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

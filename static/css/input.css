@@ -1,4 +1,6 @@
 @import "tailwindcss" source(none);
+
+@import "./animations.css";
 @plugin "../js/daisyui.js";
 @source "../../templates";
 

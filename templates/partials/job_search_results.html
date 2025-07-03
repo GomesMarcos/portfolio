@@ -1,6 +1,10 @@
+<dialog id="modal_job_details" class="modal" onclick="if(event.target === this) this.close()">
+  {% include 'partials/job_details.html' %}
+</dialog>
+
 {% for job in jobs %}
   <li>
-    <div class="card w-96 bg-base-100 shadow-xl timeline-{{ forloop.counter0|divisibleby:2|yesno:'start,end' }} timeline-box">
+    <div class="card w-96 bg-base-100 shadow-xl timeline-{{ forloop.counter0|divisibleby:2|yesno:'start,end' }} timeline-box" hx-get="/jobs/get_job_details/{{ job.id }}/" hx-trigger="click" hx-target="#modal_job_details" onclick="modal_job_details.showModal()">
       <div class="card-actions justify-end"></div>
       <time class="font-mono italic text-lg p-2 text-white rounded-t-lg bg-orange-300 time-badge">{{ job.time_range.start_date|date:'m/Y' }} - {{ job.time_range.end_date|date:'m/Y' }}</time>
       <figure class="aspect-square">
@@ -10,8 +14,8 @@
       <div class="job-title">
         <h2 class="card-title font-lg">{{ job }}</h2>
       </div>
-      <div class="font-mono italic p-2 text-white rounded-b-lg bg-primary stack-badge">
-        <p>
+      <div class="font-mono italic p-2 text-white rounded-b-lg bg-accent stack-badge">
+        <p class="truncate text-neutral">
           {% for stack in job.stack.all %}
             {{ stack }}
           {% endfor %}
