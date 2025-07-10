@@ -1,3 +1,4 @@
+
 /**
  * Esconde o elemento .mouse quando o usuário rolar o elemento com .scroll-hint.
  * Mostra novamente se voltar ao topo.
