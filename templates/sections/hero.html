@@ -1,11 +1,18 @@
 {% load static %}
+
 <section id="hero">
   <div class="hero min-h-screen" style="background-image: url({% static 'img/hero.png' %});">
     <div class="hero-overlay"></div>
     <div class="hero-content text-center">
-      <div class="max-w-md">
-        <h1 class="mb-5 text-5xl wow bounceInUp"><span class="color-base font-bold">Gome</span><span class="text-orange font-light animate__animated animate__bounce">Systems</span></h1>
-        <p class="mb-5 text-neutral-content">Qualidade de ponta a ponta.</p>
+      <div class="max-w-md wow">
+        <h1 class="mb-5 text-5xl">
+          <span class="color-base font-bold">Gome</span>
+          <span class="text-orange font-light wow animate__fadeIn" data-wow-duration="1s">Systems</span>
+        </h1>
+
+        <p class="mb-5 text-neutral-content">
+          Qualidade de <span class="wow animate__fadeIn" data-wow-delay="1.5s">ponta</span> <span class="wow animate__fadeIn" data-wow-delay="2s">a</span> <span class="wow animate__fadeIn" data-wow-delay="2.5s">ponta.</span>
+        </p>
       </div>
     </div>
   </div>
