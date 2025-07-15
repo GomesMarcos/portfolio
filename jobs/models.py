@@ -1,3 +1,5 @@
+from functools import cached_property
+
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from django.db import models
@@ -17,6 +19,7 @@ class Stack(models.Model):
     time_range = models.ManyToManyField(
         TimeRange, verbose_name=_('Time Range'), related_name='stack'
     )
+    logo = models.URLField(_('Logo URL'), max_length=500, blank=True, null=True)
 
     class Meta:
         verbose_name = _('Stack')
@@ -25,7 +28,7 @@ class Stack(models.Model):
     def __str__(self):
         return self.name
 
-    @property
+    @cached_property
     def get_time_worked(self):
         MONTHS_IN_YEAR = 12
         worked_months_years = {'years': 0, 'months': 0, 'range': []}
@@ -48,10 +51,16 @@ class Stack(models.Model):
             calculated_months = worked_months_years['months'] % MONTHS_IN_YEAR
             worked_months_years['years'] += calculated_months + 1
             worked_months_years['months'] = calculated_months
+
         worked_months_years.pop('stack')
-        worked_months_years['range'] = _(', '.join(worked_months_years['range']))
+        worked_months_years.pop('range')
+        # worked_months_years['range'] = _(', '.join(worked_months_years['range']))
 
         return worked_months_years
+
+    @cached_property
+    def url_logo(self):
+        return self.logo
 
 
 class Job(models.Model):
@@ -80,6 +89,10 @@ class Job(models.Model):
             raise ValidationError({
                 'end_date': _('Se o trabalho não é atual, a data de término deve ser preenchida.')
             })
+
+    @cached_property
+    def url_logo(self):
+        return self.logo
 
     class Meta:
         verbose_name = _('Job')

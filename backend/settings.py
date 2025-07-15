@@ -55,10 +55,9 @@ PROJECT_APPS = [
     'social',
 ]
 
-INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + PROJECT_APPS
+DEBUG_APPS = ['debug_toolbar', 'django_extensions', 'livereload']
 
-if DEBUG:
-    INSTALLED_APPS += ['debug_toolbar', 'django_extensions']
+INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -71,7 +70,17 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
+
+if DEBUG:
+    INSTALLED_APPS += DEBUG_APPS
+    MIDDLEWARE.append('livereload.middleware.LiveReloadScript')
+
 ROOT_URLCONF = 'backend.urls'
+
+
+def debug_context(request):
+    return {'debug': DEBUG}
+
 
 TEMPLATES = [
     {
@@ -83,6 +92,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'backend.settings.debug_context',
             ]
         },
     }

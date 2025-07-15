@@ -1,0 +1,44 @@
+<div class="modal-box w-full" style="max-width: 64rem; max-height: 90dvh;">
+  <form method="dialog">
+    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+  </form>
+  {% if job %}
+    <div class="text-lg font-bold card-title">
+      <figure class="aspect-square">
+        {% if job.logo %}
+          <img src="{{ job.url_logo }}" alt="{{ job.title }}" height="64" width="64" />
+        {% else %}
+          <img src="https://placehold.co/600x400" alt="Logo para {{ job.title }} não encontrada" height="64" width="64" />
+        {% endif %}
+      </figure>
+
+      <h2>{{ job.title }}</h2>
+    </div>
+    <div class="scroll-hint">
+      <p class="py-4 mt-1 whitespace-pre-line max-h-[20rem]">{{ job.description }}</p>
+      <div class="mouse">
+        <span></span>
+      </div>
+    </div>
+    <h2 class="font-bold">Tecnologias utilizadas:</h2>
+    <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-4 mt-3">
+      {% for item in job.stack.all %}
+        <div title="{{ item.name }}" class="bg-base-300 flex flex-col justify-center items-center space-y-4 w-full h-auto p-4 text-center rounded h-full shadow border-2 border-transparent hover:shadow-lg hover:border-accent transition-all duration-300 ease-in-out">
+          <figure class="aspect-square">
+            {% if item.logo %}
+              <img src="{{ item.url_logo }}" alt="{{ item.name }}" height="64" width="64" />
+            {% else %}
+              <i class="devicon-{{ item.name|lower }}-plain text-[40px] md:text-[56px] lg:text-[64px] w-full h-full max-w-[64px] max-h-[64px] color-primary"></i>
+            {% endif %}
+          </figure>
+
+          {% comment %} {% for key, value in stack.get_time_worked.items %}
+            <p>
+              {{ key }}: {{ value }}<br />
+            </p>
+          {% endfor %} {% endcomment %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

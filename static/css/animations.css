@@ -1,0 +1,151 @@
+/* Animação para indicar que há scroll e depois retornar ao topo */
+
+@keyframes scroll-indicator {
+  0% {
+    scroll-behavior: auto;
+    /* sem scroll */
+  }
+
+  10% {
+    /* começa a rolar para baixo */
+    scroll-behavior: smooth;
+    /* não há propriedade CSS pura para animar scroll, mas podemos simular com sombra ou seta */
+  }
+
+  80% {
+    /* permanece no fundo */
+  }
+
+  100% {
+    /* volta ao topo */
+    scroll-behavior: smooth;
+  }
+
+}
+
+/* Classe para adicionar uma sombra animada no topo e no fundo, sugerindo scroll */
+.scroll-hint {
+  position: relative;
+  overflow: scroll;
+}
+
+.scroll-hint::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.10));
+  opacity: 0;
+  animation: scroll-hint-fade-in-out 1s 1;
+}
+
+.scroll-hint::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 24px;
+  pointer-events: none;
+  background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.10));
+  opacity: 0;
+  animation: scroll-hint-fade-in-out 1s 1;
+}
+
+.mouse {
+  display: block;
+  width: 23px;
+  height: 40px;
+  border-radius: 13px;
+  border: 2px solid red;
+  position: absolute;
+  bottom: 0;
+  position: absolute;
+  right: 1rem;
+  margin-left: -14px;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.mouse>span {
+  display: block;
+  margin: 6px auto;
+  width: 3px;
+  height: 7px;
+  border-radius: 100%;
+  background: red;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: scroll;
+  animation-name: scroll;
+}
+
+@-webkit-keyframes scroll {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(12px);
+    transform: translateY(12px);
+  }
+}
+
+@keyframes scroll {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(12px);
+    -ms-transform: translateY(12px);
+    transform: translateY(12px);
+  }
+}
+
+
+@keyframes scroll-hint-fade-out-in {
+  0% {
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scroll-hint-fade-in-out {
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
