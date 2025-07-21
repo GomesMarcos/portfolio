@@ -56,6 +56,10 @@ PROJECT_APPS = [
 ]
 
 DEBUG_APPS = ['debug_toolbar', 'django_extensions', 'livereload']
+DEBUG_MIDDLEWARES = [
+    'livereload.middleware.LiveReloadScript',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
 
 INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + PROJECT_APPS
 
@@ -67,13 +71,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 
 if DEBUG:
     INSTALLED_APPS += DEBUG_APPS
-    MIDDLEWARE.append('livereload.middleware.LiveReloadScript')
+    MIDDLEWARE += DEBUG_MIDDLEWARES
 
 ROOT_URLCONF = 'backend.urls'
 

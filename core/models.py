@@ -1,5 +1,3 @@
-from turtle import title
-
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator
 from django.db import models
@@ -10,12 +8,12 @@ from django.utils.translation import gettext_lazy as _
 class TimeRange(models.Model):
     start_date = models.DateField(
         _('Start Date'),
-        validators=[MaxValueValidator(timezone.now().date())],
+        validators=[MaxValueValidator(timezone.now)],
     )
     end_date = models.DateField(
         _('End Date'),
-        validators=[MaxValueValidator(timezone.now().date())],
-        default=timezone.now().date(),
+        validators=[MaxValueValidator(timezone.now)],
+        default=timezone.now,
     )
 
     def __str__(self):
