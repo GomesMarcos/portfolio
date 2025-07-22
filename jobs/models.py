@@ -97,3 +97,15 @@ class Job(models.Model):
     class Meta:
         verbose_name = _('Job')
         verbose_name_plural = _('Jobs')
+
+
+class Service(models.Model):
+    name = models.CharField(_('Name'), max_length=50, unique=True)
+    description = models.TextField(_('Description'), default='')
+
+    jobs = models.ManyToManyField(Job, verbose_name=_('Job'), related_name='service')
+    stacks = models.ManyToManyField(Stack, verbose_name=_('Stack'), related_name='service')
+
+    class Meta:
+        verbose_name = _('Service')
+        verbose_name_plural = _('Services')

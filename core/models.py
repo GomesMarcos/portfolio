@@ -8,11 +8,11 @@ from django.utils.translation import gettext_lazy as _
 class TimeRange(models.Model):
     start_date = models.DateField(
         _('Start Date'),
-        validators=[MaxValueValidator(timezone.now)],
+        validators=[MaxValueValidator(lambda: timezone.now().date())],
     )
     end_date = models.DateField(
         _('End Date'),
-        validators=[MaxValueValidator(timezone.now)],
+        validators=[MaxValueValidator(lambda: timezone.now().date())],
         default=timezone.now,
     )
 
@@ -40,9 +40,9 @@ class TimeRange(models.Model):
 
         # end_date não pode ser anterior à start_date
         if self.end_date and self.start_date and self.end_date < self.start_date:
-            raise ValidationError({
-                'end_date': _('A data de término não pode ser anterior à data de início.')
-            })
+            raise ValidationError(
+                {'end_date': _('A data de término não pode ser anterior à data de início.')}
+            )
 
         # end_date não pode ser no futuro
         if self.end_date and self.end_date > timezone.now().date():
