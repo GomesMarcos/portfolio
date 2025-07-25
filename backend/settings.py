@@ -142,7 +142,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'productionfiles'
-
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -153,14 +153,14 @@ INTERNAL_IPS = ['127.0.0.1']
 
 
 UNFOLD = {
-    'SITE_TITLE': 'Custom suffix in <title> tag',
-    'SITE_HEADER': 'Appears in sidebar at the top',
-    'SITE_SUBHEADER': 'Appears under SITE_HEADER',
+    'SITE_TITLE': 'GomeSystems',
+    'SITE_HEADER': 'GomeSystems',
+    'SITE_SUBHEADER': 'Qualidade de ponta a ponta',
     'SITE_DROPDOWN': [
         {
             'icon': 'diamond',
-            'title': _('My site'),
-            'link': 'https://example.com',
+            'title': _('Site'),
+            'link': 'http://gomesystems.dev.br/',
         },
         # ...
     ],
