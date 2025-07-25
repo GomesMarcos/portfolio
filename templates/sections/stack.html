@@ -23,10 +23,12 @@
   </div>
 </section>
 <script>
-  // Aplica delays crescentes de 0.2s para cada card .wow.animate__fadeIn
+  // Aplica delays menores em mobile e maiores em desktop para os cards .wow.animate__fadeIn
   document.addEventListener('DOMContentLoaded', function () {
+    var isMobile = window.innerWidth < 768 // md: 768px
+    var delayStep = isMobile ? 0.05 : 0.2
     document.querySelectorAll('.wow.animate__fadeIn').forEach(function (el, idx) {
-      el.setAttribute('data-wow-delay', (idx * 0.2).toFixed(1) + 's')
+      el.setAttribute('data-wow-delay', (idx * delayStep).toFixed(2) + 's')
     })
   })
 </script>
