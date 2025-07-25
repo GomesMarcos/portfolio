@@ -16,9 +16,7 @@ def get_str_time_range(obj):
 class Stack(models.Model):
     name = models.CharField(_('Name'), max_length=50, unique=True)
     is_current_stack = models.BooleanField(_('Is current stack'), default=True)
-    time_range = models.ManyToManyField(
-        TimeRange, verbose_name=_('Time Range'), related_name='stack'
-    )
+    time_range = models.ManyToManyField(TimeRange, verbose_name=_('Time Range'), related_name='stack')
     logo = models.URLField(_('Logo URL'), max_length=500, blank=True, null=True)
 
     class Meta:
@@ -80,15 +78,15 @@ class Job(models.Model):
     def clean(self):
         # Se is_current_job for True, end_date deve ser nula
         if self.is_current_job and self.time_range.end_date:
-            raise ValidationError({
-                'end_date': _('Se o trabalho é atual, a data de término deve estar vazia.')
-            })
+            raise ValidationError(
+                {'end_date': _('Se o trabalho é atual, a data de término deve estar vazia.')}
+            )
 
         # Se is_current_job for False, end_date deve ser preenchida
         if not self.is_current_job and not self.time_range.end_date:
-            raise ValidationError({
-                'end_date': _('Se o trabalho não é atual, a data de término deve ser preenchida.')
-            })
+            raise ValidationError(
+                {'end_date': _('Se o trabalho não é atual, a data de término deve ser preenchida.')}
+            )
 
     @cached_property
     def url_logo(self):
@@ -102,9 +100,11 @@ class Job(models.Model):
 class Service(models.Model):
     name = models.CharField(_('Name'), max_length=50, unique=True)
     description = models.TextField(_('Description'), default='')
+    url = models.URLField(_('Service URL'), max_length=200, blank=True, null=True)
+    url_logo = models.URLField(_('Service Logo URL'), max_length=500, blank=True, null=True)
 
     jobs = models.ManyToManyField(Job, verbose_name=_('Job'), related_name='service')
-    stacks = models.ManyToManyField(Stack, verbose_name=_('Stack'), related_name='service')
+    stack = models.ManyToManyField(Stack, verbose_name=_('Stack'), related_name='service')
 
     class Meta:
         verbose_name = _('Service')
