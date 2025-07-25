@@ -52,3 +52,4 @@ class TimeRange(models.Model):
         verbose_name = _('Time Range')
         verbose_name_plural = _('Time Ranges')
         unique_together = ('start_date', 'end_date')
+        ordering = ('-end_date',)
