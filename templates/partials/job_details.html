@@ -32,12 +32,9 @@
               <i class="devicon-{{ item.name|lower }}-plain text-[40px] md:text-[56px] lg:text-[64px] w-full h-full max-w-[64px] max-h-[64px] color-primary"></i>
             {% endif %}
           </figure>
-
-          {% comment %} {% for key, value in stack.get_time_worked.items %}
-            <p>
-              {{ key }}: {{ value }}<br />
-            </p>
-          {% endfor %} {% endcomment %}
+          <p>
+            {{ item.name }}<br />
+          </p>
         </div>
       {% endfor %}
     </div>
