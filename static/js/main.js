@@ -45,3 +45,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
   }, 1000); // Ajuste o tempo se necessário para garantir que o conteúdo foi renderizado
 });
+
+
+/**
+ * Aplica o tema salvo no localStorage ao carregar a página
+ */
+document.addEventListener('DOMContentLoaded', function () {
+  // Aplica o tema salvo (ou 'light' por padrão)
+  const theme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+
+  // Adiciona listener para todos os theme-controller
+  document.querySelectorAll('.theme-controller').forEach(function (el) {
+    el.checked = (theme === 'dark');
+    el.addEventListener('change', function () {
+      // Se for checkbox, alterna entre 'dark' e 'light'
+      const newTheme = el.checked ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  });
+});
