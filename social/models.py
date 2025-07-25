@@ -43,10 +43,10 @@ class Address(models.Model):
     country = models.CharField(max_length=3, default='BRA')
     zipcode = models.CharField(max_length=8, verbose_name='ZIP Code')
 
-    # def __str__(self):
-    #     number = f'Nº {self.number}' if self.number is not None else ''
-    #     complement = self.complement or ''
-    #     return f'{self.zipcode} - {self.street}, {number}, {complement}, {self.neighborhood}, {self.city} - {self.state}/{self.country}'
+    def __str__(self):
+        number = f'Nº {self.number}' if self.number is not None else ''
+        complement = self.complement or ''
+        return f'{self.zipcode} - {self.street}, {number}, {complement}, {self.neighborhood}, {self.city} - {self.state}/{self.country}'
 
 
 class PhoneNumber(models.Model):
@@ -75,7 +75,7 @@ class Social(models.Model):
     author = models.CharField(max_length=50, default='Marcos Gomes')
     about_us = models.TextField()
     address = models.ForeignKey(Address, verbose_name='address', on_delete=models.CASCADE)
-    phone_number = models.ForeignKey(PhoneNumber, on_delete=models.CASCADE)
+    phone_number = models.ForeignKey(PhoneNumber, on_delete=models.CASCADE, blank=True, null=True)
     email = models.EmailField(max_length=254)
     social_media = models.ManyToManyField(SocialMedia, verbose_name=_('Social Media'))
     founded_in = models.DateField(blank=True, null=True)
