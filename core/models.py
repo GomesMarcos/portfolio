@@ -1,18 +1,23 @@
 from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator
+from django.utils import timezone
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
+def max_today(value):
+    if value > timezone.now().date():
+        raise ValidationError(_('A data não pode ser no futuro.'))
+
+
 class TimeRange(models.Model):
     start_date = models.DateField(
         _('Start Date'),
-        validators=[MaxValueValidator(timezone.now)],
+        validators=[max_today],
     )
     end_date = models.DateField(
         _('End Date'),
-        validators=[MaxValueValidator(timezone.now)],
+        validators=[max_today],
         default=timezone.now,
     )
 
@@ -40,9 +45,9 @@ class TimeRange(models.Model):
 
         # end_date não pode ser anterior à start_date
         if self.end_date and self.start_date and self.end_date < self.start_date:
-            raise ValidationError({
-                'end_date': _('A data de término não pode ser anterior à data de início.')
-            })
+            raise ValidationError(
+                {'end_date': _('A data de término não pode ser anterior à data de início.')}
+            )
 
         # end_date não pode ser no futuro
         if self.end_date and self.end_date > timezone.now().date():
@@ -52,3 +57,4 @@ class TimeRange(models.Model):
         verbose_name = _('Time Range')
         verbose_name_plural = _('Time Ranges')
         unique_together = ('start_date', 'end_date')
+        ordering = ('-end_date',)

@@ -166,3 +166,4 @@ staticfiles/
 # Production only
 productionfiles/
 static/css/tailwindcss
+static/css/output.css

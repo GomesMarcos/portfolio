@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 
 from decouple import Csv, config
+from django.conf.urls.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -31,13 +32,13 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
 # Application definition
 
 UNFOLD_APPS = [
-    'unfold',  # before django.contrib.admin
-    'unfold.contrib.filters',  # optional, if special filters are needed
-    'unfold.contrib.forms',  # optional, if special form elements are needed
-    'unfold.contrib.inlines',  # optional, if special inlines are needed
-    'unfold.contrib.import_export',  # optional, if django-import-export package is used
-    'unfold.contrib.guardian',  # optional, if django-guardian package is used
-    'unfold.contrib.simple_history',  # optional, if django-simple-history package is used
+    'unfold',
+    'unfold.contrib.filters',
+    'unfold.contrib.forms',
+    'unfold.contrib.inlines',
+    'unfold.contrib.import_export',
+    'unfold.contrib.guardian',
+    'unfold.contrib.simple_history',
 ]
 
 DJANGO_APPS = [
@@ -153,14 +154,14 @@ INTERNAL_IPS = ['127.0.0.1']
 
 
 UNFOLD = {
-    'SITE_TITLE': 'Custom suffix in <title> tag',
-    'SITE_HEADER': 'Appears in sidebar at the top',
-    'SITE_SUBHEADER': 'Appears under SITE_HEADER',
+    'SITE_TITLE': 'GomeSystems',
+    'SITE_HEADER': 'GomeSystems',
+    'SITE_SUBHEADER': 'Qualidade de ponta a ponta',
     'SITE_DROPDOWN': [
         {
             'icon': 'diamond',
-            'title': _('My site'),
-            'link': 'https://example.com',
+            'title': _('Site'),
+            'link': 'http://gomesystems.dev.br/',
         },
         # ...
     ],
@@ -195,9 +196,10 @@ UNFOLD = {
     #     'image': lambda request: static('sample/login-bg.jpg'),
     #     'redirect_after': lambda request: reverse_lazy('admin:APP_MODEL_changelist'),
     # },
-    # 'STYLES': [
-    #     lambda request: static('css/style.css'),
-    # ],
+    'STYLES': [
+        lambda request: static('css/style.css'),
+        lambda request: static('unfold/css/forms.css'),
+    ],
     # 'SCRIPTS': [
     #     lambda request: static('js/script.js'),
     # ],
@@ -321,6 +323,11 @@ UNFOLD = {
                         'title': _('Time Ranges'),
                         'icon': 'calendar_month',
                         'link': reverse_lazy('admin:core_timerange_changelist'),
+                    },
+                    {
+                        'title': _('Services'),
+                        'icon': 'calendar_month',
+                        'link': reverse_lazy('admin:jobs_service_changelist'),
                     },
                 ],
             },

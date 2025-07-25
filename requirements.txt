@@ -1,4 +1,3 @@
-ruffasgiref==3.9.1
 Django==5.0.2
 django-unfold==0.62.0
 model-bakery==1.20.5
