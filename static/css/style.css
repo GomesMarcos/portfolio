@@ -15,5 +15,5 @@
 /* Para DaisyUI: tema escuro via data-theme */
 html[data-theme="dark"] .bw-logo,
 body[data-theme="dark"] .bw-logo {
-    filter: grayscale(1) brightness(1.5) invert(1);
+    filter: grayscale(1) brightness(0) invert(1);
 }
