@@ -25,6 +25,7 @@ SECRET_KEY = config('SECRET_KEY', default='')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
+ENV = config('ENV', default='dev')
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
 
@@ -161,7 +162,7 @@ UNFOLD = {
         {
             'icon': 'diamond',
             'title': _('Site'),
-            'link': 'http://gomesystems.dev.br/',
+            'link': 'http://gomesystems.dev.br/' if ENV == 'prod' else 'http://localhost:8000/',
         },
         # ...
     ],
@@ -326,7 +327,7 @@ UNFOLD = {
                     },
                     {
                         'title': _('Services'),
-                        'icon': 'calendar_month',
+                        'icon': 'attach_money',
                         'link': reverse_lazy('admin:jobs_service_changelist'),
                     },
                 ],

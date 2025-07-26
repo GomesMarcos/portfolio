@@ -2,8 +2,8 @@
 {% block content %}
   <section id="about">
     {% if social_info %}
-      {% trans '<h2 class="h2">About us</h2>' %}
-      {{ social_info.about_us }}
+      {% trans '<h2 class="font-bold my-3">Sobre a GomeSystems:</h2>' %}
+      {{ social_info.about_us|safe }}
     {% endif %}
   </section>
 {% endblock %}

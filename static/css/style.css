@@ -6,3 +6,14 @@
 @plugin "daisyui" {
     themes: light --default, dark --prefersdark;
 }
+
+.bw-logo {
+    filter: grayscale(1) brightness(0) invert(0);
+    transition: filter 0.3s;
+}
+
+/* Para DaisyUI: tema escuro via data-theme */
+html[data-theme="dark"] .bw-logo,
+body[data-theme="dark"] .bw-logo {
+    filter: grayscale(1) brightness(0) invert(1);
+}
