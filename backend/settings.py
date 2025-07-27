@@ -51,6 +51,10 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
+THIRD_PARTY_APPS = [
+    'django_cleanup.apps.CleanupConfig',
+]
+
 PROJECT_APPS = [
     'core',
     'jobs',
