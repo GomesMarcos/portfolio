@@ -60,11 +60,7 @@ class PhoneNumber(models.Model):
 class SocialMedia(models.Model):
     name = models.CharField(max_length=50)
     url = models.URLField(max_length=300)
-
-    @property
-    def logo(self):
-        # TODO: configurar o ícone via font awesome pelo name
-        ...
+    url_logo = models.URLField(max_length=300, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -73,6 +69,7 @@ class SocialMedia(models.Model):
 class Social(models.Model):
     name = models.CharField(max_length=50, default='GomeSystems')
     author = models.CharField(max_length=50, default='Marcos Gomes')
+    thumbnail = models.ImageField(upload_to='social/thumbnail', blank=True, null=True)
     about_us = models.TextField()
     address = models.ForeignKey(Address, verbose_name='address', on_delete=models.CASCADE)
     phone_number = models.ForeignKey(PhoneNumber, on_delete=models.CASCADE, blank=True, null=True)
@@ -81,4 +78,4 @@ class Social(models.Model):
     founded_in = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} - {self.author}'

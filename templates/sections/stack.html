@@ -1,36 +1,46 @@
 <section id="stack">
   <h2 class="font-bold text-xl text-center my-3">Tecnologias</h2>
-
-  <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-4 mt-3">
-    {% for item in stack.all %}
-      <div class="wow animate__fadeIn bg-base-300 flex flex-col justify-center items-center space-y-4 w-full h-auto p-4 text-center rounded h-full shadow border-2 border-transparent hover:shadow-lg hover:border-accent transition-all duration-300 ease-in-out" data-wow-delay="0s">
-        <figure class="aspect-square flex items-center justify-center">
-          {% if item.logo %}
-            <img src="{{ item.url_logo }}" alt="{{ item.name }}" height="64" width="64" class="bw-logo" />
-          {% else %}
-            <i class="devicon-{{ item.name|lower }}-plain text-[40px] md:text-[56px] lg:text-[64px] w-full h-full max-w-[64px] max-h-[64px] color-primary"></i>
-          {% endif %}
-        </figure>
-
-        <p class="font-bold flex justify-center items-center break-words">{{ item.name }}</p>
-        {% for key, value in item.get_time_worked.items %}
-          <p>
-            {{ key }}: {{ value }}<br />
-          </p>
+  <p class="text-center text-sm my-4">As tecnologias que utilizo no meu dia a dia.</p>
+  <div class="flex w-full justify-start items-center my-2">
+    <div class="job-filter">
+      <label for="stack_search">Filtrar por tecnologia</label>
+      <input id="stack_search" type="text" name="stack_search" placeholder="Python" class="input input-bordered input-accent my-3 md:w-auto" hx-post="/jobs/get_stack_by_name_or_worked_years" hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load" hx-target="#stack-results" hx-indicator=".htmx-indicator" />
+    </div>
+    <div class="divider divider-horizontal"></div>
+    <div class="job-filter">
+      <label for="year_search">Filtrar por quantidade de anos trabalhados</label>
+      <div id="year_search" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 mt-2">
+        {% for year in stack_years %}
+          <button 
+            onclick="cleanInput('stack_search')"
+            class='btn btn-primary'
+            hx-post="/jobs/get_stack_by_name_or_worked_years"
+            hx-target="#stack-results"
+            name="worked_years"
+            value="{{ year }}"
+            type="button"
+            hx-vals='{"worked_years": "{{ year }}"}'
+          >{{ year }}</button>
+        {% empty %}
+          <p class="text-gray-400 col-span-full">Nenhum ano encontrado</p>
         {% endfor %}
+        <button 
+            onclick="cleanInput('stack_search')"
+            class='btn btn-primary'
+            hx-post="/jobs/get_stack_by_name_or_worked_years"
+            hx-target="#stack-results"
+            name="worked_years"
+            value=""
+            type="button"
+            hx-vals='{}'
+          >Todos</button>
       </div>
-    {% endfor %}
+    </div>
+  </div>
+  {% if stack.all|length == 0 %}
+    <p class="text-center text-sm">Nenhuma tecnologia encontrada.</p>
+  {% endif %}
+  <div id="stack-results" class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-4 mt-3">
+    {% include 'partials/stack_search_result.html' %}
   </div>
 </section>
-<script>
-  // Apply smaller delays on mobile and limit the maximum delay on desktop for .wow.animate__fadeIn cards
-  document.addEventListener('DOMContentLoaded', function () {
-    const isMobile = window.innerWidth < 768 // md: 768px
-    const delayStep = isMobile ? 0.05 : 0.08 // desktop faster
-    const maxDelay = isMobile ? 0.4 : 0.6 // limit max delay
-    document.querySelectorAll('.wow.animate__fadeIn').forEach(function (el, idx) {
-      var delay = Math.min(idx * delayStep, maxDelay)
-      el.setAttribute('data-wow-delay', delay.toFixed(2) + 's')
-    })
-  })
-</script>

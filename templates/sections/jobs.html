@@ -10,7 +10,7 @@
       <div class="job-filter">
         <label for="year_search">Filtrar por ano de início/fim</label>
         <div id="year_search" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 mt-2">
-          {% for year in years %}
+          {% for year in jobs_years %}
             <button 
               class='btn btn-primary'
               hx-post="/jobs/get_job_by_title_or_stack"
