@@ -1,4 +1,38 @@
 
+function applyStackCardDelays() {
+  // Apply smaller delays on mobile and limit the maximum delay on desktop for .stack-card cards
+  const isMobile = window.innerWidth < 768 // md: 768px
+  const delayStep = isMobile ? 0.05 : 0.08 // desktop faster
+  const maxDelay = isMobile ? 0.4 : 0.6 // limit max delay
+  document.querySelectorAll('.stack-card').forEach(function (el, idx) {
+    var delay = Math.min(idx * delayStep, maxDelay)
+    el.setAttribute('data-wow-delay', delay.toFixed(2) + 's')
+  })
+}
+
+
+function changeCollorTheme() {
+  const theme = localStorage.getItem('theme') || 'light'
+  document.documentElement.setAttribute('data-theme', theme)
+
+  // Adiciona listener para todos os theme-controller
+  document.querySelectorAll('.theme-controller').forEach(function (el) {
+    el.checked = (theme === 'dark')
+    el.addEventListener('change', function () {
+      // Se for checkbox, alterna entre 'dark' e 'light'
+      const newTheme = el.checked ? 'dark' : 'light'
+      document.documentElement.setAttribute('data-theme', newTheme)
+      localStorage.setItem('theme', newTheme)
+    })
+  })
+}
+
+function cleanInput(inputId) {
+  document.querySelectorAll(`input[id="${inputId}"]`).forEach(function (el) {
+    el.value = ''
+  })
+}
+
 /**
  * Esconde o elemento .mouse quando o usuário rolar o elemento com .scroll-hint.
  * Mostra novamente se voltar ao topo.
@@ -44,6 +78,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
   }, 1000); // Ajuste o tempo se necessário para garantir que o conteúdo foi renderizado
+
+  applyStackCardDelays();
+  changeCollorTheme();
+});
+
+// Reaplica o delay nos stack-cards quando um partial for carregado via HTMX
+document.body.addEventListener('htmx:afterSwap', function (evt) {
+  applyStackCardDelays();
 });
 
 
@@ -52,17 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 document.addEventListener('DOMContentLoaded', function () {
   // Aplica o tema salvo (ou 'light' por padrão)
-  const theme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', theme);
+  changeCollorTheme()
 
-  // Adiciona listener para todos os theme-controller
-  document.querySelectorAll('.theme-controller').forEach(function (el) {
-    el.checked = (theme === 'dark');
-    el.addEventListener('change', function () {
-      // Se for checkbox, alterna entre 'dark' e 'light'
-      const newTheme = el.checked ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    });
-  });
 });

@@ -21,7 +21,7 @@
         {% for item in social_info.social_media.all %}
           <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer" class="relative group focus:outline-none">
             <figure class="aspect-square">
-              {% if item.logo %}
+              {% if item.url_logo %}
                 <img src="{{ item.url_logo }}" alt="{{ item.name }}" height="24" width="24" class="bw-logo" />
               {% else %}
                 <i class="devicon-{{ item.name|lower }}-plain text-[24px] hover:text-primary"></i>
