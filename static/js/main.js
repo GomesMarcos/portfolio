@@ -7,6 +7,12 @@ function applyStackCardDelays() {
   document.querySelectorAll('.stack-card').forEach(function (el, idx) {
     var delay = Math.min(idx * delayStep, maxDelay)
     el.setAttribute('data-wow-delay', delay.toFixed(2) + 's')
+
+    // Remove opacity-0 when animation starts (fixes cards disappearing after fade)
+    el.addEventListener('animationstart', function handler() {
+      el.classList.remove('opacity-0');
+      el.removeEventListener('animationstart', handler);
+    });
   })
 }
 
