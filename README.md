@@ -34,3 +34,6 @@ curl -sLo static/css/daisyui-theme.js https://github.com/saadeghi/daisyui/releas
 4. run `./manage.py runserver`
 
 Now you can test your templates' changes without reloading page
+
+## Running with Docker
+Run in terminal `docker-compose up --build -d`, and them, access `http://127.0.0.1/` (without port)
