@@ -29,7 +29,7 @@ class Stack(models.Model):
     @cached_property
     def get_time_worked(self):
         MONTHS_IN_YEAR = 12
-        worked_months_years = {'years': 0, 'months': 0, 'range': []}
+        worked_months_years = {'years': 0, 'months': 0}
         for time_range in self.time_range.all():
             start = time_range.start_date
             end = time_range.end_date or timezone.now().date()
@@ -43,16 +43,14 @@ class Stack(models.Model):
                     'years': delta_months // MONTHS_IN_YEAR,
                     'months': delta_months % MONTHS_IN_YEAR,
                 }
-            worked_months_years['range'].append(get_str_time_range(time_range))
-
+        # If months exceed 12, convert to years and months
         if worked_months_years['months'] >= MONTHS_IN_YEAR:
             calculated_months = worked_months_years['months'] % MONTHS_IN_YEAR
-            worked_months_years['years'] += calculated_months + 1
+            calculated_years = worked_months_years['months'] // MONTHS_IN_YEAR
+            worked_months_years['years'] += calculated_years
             worked_months_years['months'] = calculated_months
 
         worked_months_years.pop('stack')
-        worked_months_years.pop('range')
-        # worked_months_years['range'] = _(', '.join(worked_months_years['range']))
 
         return worked_months_years
 

@@ -28,11 +28,11 @@ class GroupAdmin(BaseGroupAdmin, ModelAdmin):
 
 
 @admin.register(TimeRange)
-class TimeRangeAdmin(admin.ModelAdmin):
-    list_display = ['display_stacks', 'display_jobs', 'start_date', 'end_date']
+class TimeRangeAdmin(ModelAdmin):
+    list_display = ['display_jobs', 'display_stacks', 'start_date', 'end_date']
 
     def display_stacks(self, obj):
         return ', '.join([stack.name for stack in obj.stack.all()])
 
     def display_jobs(self, obj):
-        return obj.job.name
+        return obj.job.last().title if obj.job.exists() else '-'
