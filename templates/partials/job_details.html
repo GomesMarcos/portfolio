@@ -15,7 +15,7 @@
       <h2>{{ job.title }}</h2>
     </div>
     <div class="scroll-hint">
-      <p class="py-4 mt-1 whitespace-pre-line max-h-[20rem]">{{ job.description }}</p>
+      <div class="py-4 mt-1 whitespace-pre-line max-h-[20rem]">{{ job.description|safe }}</div>
       <div class="mouse">
         <span></span>
       </div>
