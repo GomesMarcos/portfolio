@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:15
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: /bin/sh -c "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py loaddata data.json && gunicorn backend.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - .:/app
+      - static_volume:/app/productionfiles
+      - media_volume:/app/media
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  nginx:
+    image: nginx:1.25
+    restart: always
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/app/productionfiles:ro
+      - media_volume:/app/media:ro
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

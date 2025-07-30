@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from django.db import models
+from unfold.contrib.forms.widgets import WysiwygWidget
 from .models import Job, Service, Stack
 
 
@@ -7,6 +9,12 @@ from .models import Job, Service, Stack
 class JobAdmin(admin.ModelAdmin):
     list_display = ['title', 'time_range']
     filter_horizontal = ['stack']
+
+    formfield_overrides = {
+        models.TextField: {
+            "widget": WysiwygWidget,
+        }
+    }
 
 
 @admin.register(Stack)

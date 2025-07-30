@@ -1,0 +1,45 @@
+name: Django CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Ensure the Tailwind CSS CLI is executable
+      - name: Install Tailwind CSS CLI (if not exists)
+        run: |
+          if [ ! -f static/css/tailwindcss ]; then
+            curl -sLo static/css/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64
+            chmod +x static/css/tailwindcss
+          fi
+
+      - name: Build Tailwind CSS
+        run: |
+          ./static/css/tailwindcss -i static/css/input.css -o static/css/output.css --minify
+
+      - name: Run Django checks
+        run: |
+          python manage.py check
+
+    # Unit Tests
+    # - name: Run tests
+    #   run: python manage.py test

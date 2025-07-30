@@ -15,7 +15,7 @@ def get_str_time_range(obj):
 
 class Stack(models.Model):
     name = models.CharField(_('Name'), max_length=50, unique=True)
-    is_current_stack = models.BooleanField(_('Is current stack'), default=True)
+    is_current_stack = models.BooleanField(_('Is current stack'), default=False)
     time_range = models.ManyToManyField(TimeRange, verbose_name=_('Time Range'), related_name='stack')
     logo = models.URLField(_('Logo URL'), max_length=500, blank=True, null=True)
 
@@ -29,7 +29,7 @@ class Stack(models.Model):
     @cached_property
     def get_time_worked(self):
         MONTHS_IN_YEAR = 12
-        worked_months_years = {'years': 0, 'months': 0, 'range': []}
+        worked_months_years = {'years': 0, 'months': 0}
         for time_range in self.time_range.all():
             start = time_range.start_date
             end = time_range.end_date or timezone.now().date()
@@ -43,16 +43,14 @@ class Stack(models.Model):
                     'years': delta_months // MONTHS_IN_YEAR,
                     'months': delta_months % MONTHS_IN_YEAR,
                 }
-            worked_months_years['range'].append(get_str_time_range(time_range))
-
+        # If months exceed 12, convert to years and months
         if worked_months_years['months'] >= MONTHS_IN_YEAR:
             calculated_months = worked_months_years['months'] % MONTHS_IN_YEAR
-            worked_months_years['years'] += calculated_months + 1
+            calculated_years = worked_months_years['months'] // MONTHS_IN_YEAR
+            worked_months_years['years'] += calculated_years
             worked_months_years['months'] = calculated_months
 
         worked_months_years.pop('stack')
-        worked_months_years.pop('range')
-        # worked_months_years['range'] = _(', '.join(worked_months_years['range']))
 
         return worked_months_years
 
@@ -87,6 +85,24 @@ class Job(models.Model):
             raise ValidationError(
                 {'end_date': _('Se o trabalho não é atual, a data de término deve ser preenchida.')}
             )
+
+    def set_stacks_by_names(self, stack_names):
+        """
+        Associates stacks to this job from a list of names.
+        Creates the stacks that do not exist.
+        Only adds new stacks, does not remove existing ones.
+        """
+        for name in stack_names:
+            stack = Stack.objects.filter(name__iexact=name.strip()).first() or Stack.objects.create(
+                name=name.strip()
+            )
+            # Adiciona o time_range se não estiver presente
+            if self.time_range not in stack.time_range.all():
+                stack.time_range.add(self.time_range)
+            # Adiciona a stack ao job se ainda não estiver associada
+            if not self.stack.filter(pk=stack.pk).exists():
+                self.stack.add(stack)
+        self.save()
 
     @cached_property
     def url_logo(self):
