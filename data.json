@@ -1,0 +1,333 @@
+[
+    {
+        "model": "core.timerange",
+        "pk": 1,
+        "fields": {
+            "start_date": "2023-02-01",
+            "end_date": "2023-04-30"
+        }
+    },
+    {
+        "model": "core.timerange",
+        "pk": 2,
+        "fields": {
+            "start_date": "2023-08-14",
+            "end_date": "2025-06-17"
+        }
+    },
+    {
+        "model": "core.timerange",
+        "pk": 3,
+        "fields": {
+            "start_date": "2021-03-01",
+            "end_date": "2022-04-30"
+        }
+    },
+    {
+        "model": "core.timerange",
+        "pk": 4,
+        "fields": {
+            "start_date": "2023-02-01",
+            "end_date": "2023-04-28"
+        }
+    },
+    {
+        "model": "core.timerange",
+        "pk": 5,
+        "fields": {
+            "start_date": "2022-03-03",
+            "end_date": "2023-02-19"
+        }
+    },
+    {
+        "model": "core.timerange",
+        "pk": 6,
+        "fields": {
+            "start_date": "2020-10-01",
+            "end_date": "2021-01-31"
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 1,
+        "fields": {
+            "name": "Django",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                2,
+                1
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 2,
+        "fields": {
+            "name": "HTML5",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 3,
+        "fields": {
+            "name": "CSS3",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 4,
+        "fields": {
+            "name": "Javascript",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                2,
+                1
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 5,
+        "fields": {
+            "name": "RabbitMQ",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 6,
+        "fields": {
+            "name": "Flask",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                5,
+                3
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 7,
+        "fields": {
+            "name": "MySQL",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 8,
+        "fields": {
+            "name": "GitFlow",
+            "is_current_stack": true,
+            "logo": "https://i0.wp.com/blog.nashtechglobal.com/wp-content/uploads/2024/01/git-flow.png?fit=275%2C275&ssl=1",
+            "time_range": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 9,
+        "fields": {
+            "name": "ElasticSearch",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                5
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 10,
+        "fields": {
+            "name": "PyTest",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                5,
+                3
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 11,
+        "fields": {
+            "name": "Django TestCase",
+            "is_current_stack": true,
+            "logo": "https://icon.icepanel.io/Technology/png-shadow-512/Django.png",
+            "time_range": [
+                2,
+                4
+            ]
+        }
+    },
+    {
+        "model": "jobs.stack",
+        "pk": 12,
+        "fields": {
+            "name": "Laravel",
+            "is_current_stack": true,
+            "logo": null,
+            "time_range": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "jobs.job",
+        "pk": 1,
+        "fields": {
+            "title": "BeeMôn Tecnologia",
+            "description": "Dockerização de aplicações Python com múltiplas escalas, como Docker e Docker Compose;\r\n\r\nFeature Toggle e documentação com aplicações Django criadas por nós mesmos;\r\n\r\nWeb Crawling com Selenium, Requests, Beautiful Soup, Jinja (HTML+CSS) para apresentação de dados e captura de tela em PDF (quando o crawler estava com a biblioteca de requests);\r\n\r\nGerenciamento de dados com Django, PostgreSQL, Redis;\r\n\r\nObservabilidade com Sentry, Grafana;\r\n\r\nQualidade de software com SonarQube, Ruff, Black, iSort, Github Actions e Unittests;\r\n\r\nUnittests com Django's TestCase, Model Bakery;\r\n\r\nPersonalização do administrador do Django com Django Jazzmin, filtros personalizados do Django, AJAX, jQuery, HTML, CSS;\r\n\r\nComunicação de API/Computação assíncrona com DRF, Celery, RabbitMQ, Pika;\r\n\r\nTreinamento de pessoas com palestras, apresentações e programação em pares.",
+            "url": "https://www.linkedin.com/company/beemontech/posts/?feedView=all",
+            "logo": "https://media.licdn.com/dms/image/v2/D4E0BAQFh5FPjrivwlw/company-logo_200_200/company-logo_200_200/0/1682597430039/beemontech_logo?e=1756339200&v=beta&t=vD1BKbGo3mlbLRTLZrUccitW2jQilawH5yzYxt1NEUQ",
+            "is_current_job": false,
+            "time_range": 2,
+            "stack": [
+                1,
+                11
+            ]
+        }
+    },
+    {
+        "model": "jobs.job",
+        "pk": 2,
+        "fields": {
+            "title": "Sky.One",
+            "description": "Develop REST APIs using Django Rest Framework providing communication between external APIs for Cloud Solutions.\r\n\r\nKeep and/or Update existent code, improving it with refactoring, unit tests, documentations.\r\n\r\nWork beneath Agile Methodologies and Tools (dailies, OKRs, Jira, Kanban, Pair Programming, etc).\r\n\r\nHelp Junior/Trainees to write code with good practices as Clean Architecture, Clean Code, DRY, Readability, Performance Improvement, etc.\r\n\r\nDo code reviews, watch APM logs, queue statuses with tools like Logstash, Kibana, RabbitMQ , etc.\r\n\r\nWrite email scripts, parsing templates with Jinja2.Develop",
+            "url": "https://www.linkedin.com/company/skyoneplataform/",
+            "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQHRciBaw8TTxw/company-logo_200_200/company-logo_200_200/0/1697757820229/skyonesolutions_logo?e=1756339200&v=beta&t=UHJHa9sEWmlwgn9rnSryR_Hyk4rvspCCq5HJBc2M564",
+            "is_current_job": false,
+            "time_range": 4,
+            "stack": [
+                1,
+                2,
+                3,
+                4
+            ]
+        }
+    },
+    {
+        "model": "jobs.job",
+        "pk": 3,
+        "fields": {
+            "title": "Partyou",
+            "description": "Survey of functional and non-functional requirements.\r\n\r\nImplementation and maintenance of microservices using Flask, GIT, GitFlow, Swagger, Git Actions (validation of unit test coverage and formatting appropriate to best practices - pytest and flake8), PostgreSQL, ElasticSearch and Kafka.\r\n\r\nSprints ceremonies (Retro, Planing, Dailies) using Jira as Agile tool.",
+            "url": "https://www.linkedin.com/company/partyou/",
+            "logo": "https://media.licdn.com/dms/image/v2/D4D0BAQEI6rXT4uW_NQ/company-logo_200_200/company-logo_200_200/0/1719255647133/partyou_logo?e=1756339200&v=beta&t=1cBPgLYP-UJbG2g4Q-TShJANDtUW7VBKEV7t-3tgf9g",
+            "is_current_job": false,
+            "time_range": 5,
+            "stack": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "jobs.job",
+        "pk": 4,
+        "fields": {
+            "title": "Kabum",
+            "description": "Development and maintenance of microservice in Python (Flask) using Clean Architecture, Clean Code and SOLID.\r\n\r\nWrite Unit tests with PYTest and Coverage. Agile tools: Jira and Confluence.\r\n\r\nVersion Control System with Git and GitFlow.",
+            "url": "https://www.linkedin.com/company/kabum/",
+            "logo": "https://media.licdn.com/dms/image/v2/C4D0BAQFvyA9mKn1Kcg/company-logo_200_200/company-logo_200_200/0/1630460455979/kabum_logo?e=1756339200&v=beta&t=EV49LHP1XLSreI5RYSdhwK7WEAP_j5TNADtJQgqMiNo",
+            "is_current_job": false,
+            "time_range": 3,
+            "stack": [
+                6,
+                7,
+                8
+            ]
+        }
+    },
+    {
+        "model": "jobs.job",
+        "pk": 5,
+        "fields": {
+            "title": "Montreal Informática",
+            "description": "Manutenção e evolução de sistemas web baseados em PHP, Oracle e VueJs",
+            "url": "https://montreal.com.br/",
+            "logo": "https://montreal.com.br/wp-content/uploads/2025/01/logoBranco.png",
+            "is_current_job": false,
+            "time_range": 6,
+            "stack": [
+                2,
+                3,
+                4,
+                12
+            ]
+        }
+    },
+    {
+        "model": "social.address",
+        "pk": 1,
+        "fields": {
+            "street": "Avenida Tancredo Neves",
+            "number": "1283",
+            "complement": "Edif Empresarial Omega Sala 902",
+            "neighborhood": "Caminho das Arvores",
+            "city": "Salvador",
+            "state": "BA",
+            "country": "BRA",
+            "zipcode": "41820021"
+        }
+    },
+    {
+        "model": "social.socialmedia",
+        "pk": 1,
+        "fields": {
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/in/gomesmarcos/",
+            "url_logo": null
+        }
+    },
+    {
+        "model": "social.socialmedia",
+        "pk": 2,
+        "fields": {
+            "name": "CodePen",
+            "url": "https://codepen.io/gomesmarcos",
+            "url_logo": null
+        }
+    },
+    {
+        "model": "social.social",
+        "pk": 1,
+        "fields": {
+            "name": "GomeSystems",
+            "author": "Marcos Gomes",
+            "thumbnail": "",
+            "about_us": "<div>Atuo como desenvolvedor Web desde 2017, logo após ter pivotado da área de Música para programação, por enxergar melhores oportunidades. <br><br>Venho trabalhando majoritariamente com Python, principalmente com Flask e estudando Django e Django Rest Framework. Também possuo experiência com PHP e os seguintes frameworks: WordPress Developer, Laravel, CodeIgniter. Com tecnologias FrontEnd possuo experiência com HTML5, CSS3, JS, EcmaScript, um pouco de TypeScript, Angular 7, SVG, animações para Web, jQuery, AJAX. <br><br>Tenho experiência com os Bancos Relacionais Oracle, MySQL e SQL Server. Já utilizei ferramentas de versionamento SVN Tortoise e Git, este com as plataformas GitHub, GitLab e BitBucket. Atualmente estou estudando Django e DRF para desenvolvimento Web BackEnd e Angular2+/ Vue para o Front. <br><br>Tenho, também, alguns projetos pessoais em Python e Godot Game Engine. Gosto de atuar na área de Desenvolvimento de Softwares, Sistemas e Jogos porque, pra mim, é muito empolgante ver seu trabalho impactando diretamente em um número incalculável de pessoas.</div>",
+            "address": 1,
+            "phone_number": null,
+            "email": "contato@gomesystems.dev.br",
+            "founded_in": "2022-03-01",
+            "social_media": [
+                1,
+                2
+            ]
+        }
+    }
+]

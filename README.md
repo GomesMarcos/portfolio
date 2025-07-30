@@ -37,3 +37,14 @@ Now you can test your templates' changes without reloading page
 
 ## Running with Docker
 Run in terminal `docker-compose up --build -d`, and them, access `http://127.0.0.1/` (without port)
+
+## Load Existent Data
+1. Dump data from database into `data.json` file:
+    - `./manage.py dumpdata --exclude auth.permission --exclude contenttypes --exclude sessions.session --exclude admin.logentry > data.json`  
+    - PS: If you're using SQLITE db, use dump for it with:
+    `./manage.py dumpdata --database=local --exclude auth.permission --exclude contenttypes --exclude sessions.session --exclude admin.logentry > data.json`
+2. Load dumped data into default DB:
+    - `./manage.py loaddata data.json`
+
+### !Important
+Remember to exclude superusers from your dumped data JSON file for security proposites.
