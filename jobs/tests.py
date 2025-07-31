@@ -1,7 +1,7 @@
 from django.test import TestCase
 from model_bakery import baker
 
-from jobs.models import Job, Stack
+from jobs.models import Stack
 
 
 class StackTestCase(TestCase):

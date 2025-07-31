@@ -12,7 +12,7 @@ class JobAdmin(admin.ModelAdmin):
 
     formfield_overrides = {
         models.TextField: {
-            "widget": WysiwygWidget,
+            'widget': WysiwygWidget,
         }
     }
 
@@ -30,11 +30,11 @@ class ServiceAdmin(admin.ModelAdmin):
 
     @admin.display(description='Jobs', ordering='jobs__time_range__end_date')
     def get_jobs(self, obj):
-        return ", ".join([job.title for job in obj.jobs.all()])
+        return ', '.join([job.title for job in obj.jobs.all()])
 
     @admin.display(description='Stack', ordering='stack__time_range__end_date')
     def get_stack(self, obj):
-        return ", ".join([stack.name for stack in obj.stack.all()])
+        return ', '.join([stack.name for stack in obj.stack.all()])
 
     def get_time_worked(self, obj):
         return obj.get_time_worked['years'], obj.get_time_worked['months']

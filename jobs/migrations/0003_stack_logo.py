@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('jobs', '0002_alter_job_time_range_alter_stack_time_range'),
     ]

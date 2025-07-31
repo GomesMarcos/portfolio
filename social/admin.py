@@ -19,7 +19,7 @@ class PhoneNumberAdmin(ModelAdmin): ...
 class SocialAdmin(ModelAdmin):
     formfield_overrides = {
         models.TextField: {
-            "widget": WysiwygWidget,
+            'widget': WysiwygWidget,
         }
     }
 

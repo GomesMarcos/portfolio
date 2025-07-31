@@ -9,6 +9,8 @@ RUN apt-get update && \
     build-essential \
     curl \
     libpq-dev \
+    certbot \
+    python3-certbot-nginx \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .

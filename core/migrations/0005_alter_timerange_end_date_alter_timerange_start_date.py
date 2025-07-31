@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0004_alter_timerange_end_date'),
     ]
@@ -15,11 +14,18 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='timerange',
             name='end_date',
-            field=models.DateField(default=datetime.date(2025, 7, 3), validators=[django.core.validators.MaxValueValidator(datetime.date(2025, 7, 3))], verbose_name='End Date'),
+            field=models.DateField(
+                default=datetime.date(2025, 7, 3),
+                validators=[django.core.validators.MaxValueValidator(datetime.date(2025, 7, 3))],
+                verbose_name='End Date',
+            ),
         ),
         migrations.AlterField(
             model_name='timerange',
             name='start_date',
-            field=models.DateField(validators=[django.core.validators.MaxValueValidator(datetime.date(2025, 7, 3))], verbose_name='Start Date'),
+            field=models.DateField(
+                validators=[django.core.validators.MaxValueValidator(datetime.date(2025, 7, 3))],
+                verbose_name='Start Date',
+            ),
         ),
     ]

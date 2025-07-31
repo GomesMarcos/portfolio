@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0004_alter_timerange_end_date'),
         ('jobs', '0001_initial'),
@@ -15,11 +14,18 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='job',
             name='time_range',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='job', to='core.timerange', verbose_name='Time Range'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name='job',
+                to='core.timerange',
+                verbose_name='Time Range',
+            ),
         ),
         migrations.AlterField(
             model_name='stack',
             name='time_range',
-            field=models.ManyToManyField(related_name='stack', to='core.timerange', verbose_name='Time Range'),
+            field=models.ManyToManyField(
+                related_name='stack', to='core.timerange', verbose_name='Time Range'
+            ),
         ),
     ]

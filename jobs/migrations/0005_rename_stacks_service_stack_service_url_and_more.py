@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('jobs', '0004_service'),
     ]
@@ -23,6 +22,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='service',
             name='url_logo',
-            field=models.URLField(blank=True, max_length=500, null=True, verbose_name='Service Logo URL'),
+            field=models.URLField(
+                blank=True, max_length=500, null=True, verbose_name='Service Logo URL'
+            ),
         ),
     ]

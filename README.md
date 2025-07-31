@@ -46,5 +46,8 @@ Run in terminal `docker-compose up --build -d`, and them, access `http://127.0.0
 2. Load dumped data into default DB:
     - `./manage.py loaddata data.json`
 
+3. In a Docker container, run:
+    - `docker-compose exec web ./manage.py loaddata data.json`
+
 ### !Important
 Remember to exclude superusers from your dumped data JSON file for security proposites.

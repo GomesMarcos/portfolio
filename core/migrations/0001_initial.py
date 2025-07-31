@@ -6,19 +6,40 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='TimeRange',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('start_date', models.DateField(validators=[django.core.validators.MaxValueValidator(datetime.date(2025, 6, 27))], verbose_name='Start Date')),
-                ('end_date', models.DateField(blank=True, null=True, validators=[django.core.validators.MaxValueValidator(datetime.date(2025, 6, 27))], verbose_name='End Date')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
+                (
+                    'start_date',
+                    models.DateField(
+                        validators=[
+                            django.core.validators.MaxValueValidator(datetime.date(2025, 6, 27))
+                        ],
+                        verbose_name='Start Date',
+                    ),
+                ),
+                (
+                    'end_date',
+                    models.DateField(
+                        blank=True,
+                        null=True,
+                        validators=[
+                            django.core.validators.MaxValueValidator(datetime.date(2025, 6, 27))
+                        ],
+                        verbose_name='End Date',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Time Range',
