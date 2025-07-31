@@ -1,0 +1,14 @@
+name: Deploy on VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call VPS webhook
+        run: |
+          curl -X POST ${WEBHOOK_URL}
