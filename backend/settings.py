@@ -170,7 +170,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = ['127.0.0.1']
 
 
-UNFOLD = {
+UNFOLD = {  # noqa: E501
     'SITE_TITLE': 'GomeSystems',
     'SITE_HEADER': 'GomeSystems',
     'SITE_SUBHEADER': 'Qualidade de ponta a ponta',
@@ -180,46 +180,11 @@ UNFOLD = {
             'title': _('Site'),
             'link': 'http://gomesystems.dev.br/' if ENV == 'prod' else 'http://localhost:8000/',
         },
-        # ...
     ],
-    # 'SITE_URL': '/',
-    # # "SITE_ICON": lambda request: static("icon.svg"),  # both modes, optimise for 32px height
-    # 'SITE_ICON': {
-    #     'light': lambda request: static('icon-light.svg'),  # light mode
-    #     'dark': lambda request: static('icon-dark.svg'),  # dark mode
-    # },
-    # # "SITE_LOGO": lambda request: static("logo.svg"),  # both modes, optimise for 32px height
-    # 'SITE_LOGO': {
-    #     'light': lambda request: static('logo-light.svg'),  # light mode
-    #     'dark': lambda request: static('logo-dark.svg'),  # dark mode
-    # },
-    # 'SITE_SYMBOL': 'speed',  # symbol from icon set
-    # 'SITE_FAVICONS': [
-    #     {
-    #         'rel': 'icon',
-    #         'sizes': '32x32',
-    #         'type': 'image/svg+xml',
-    #         'href': lambda request: static('favicon.svg'),
-    #     },
-    # ],
-    # 'SHOW_HISTORY': True,  # show/hide "History" button, default: True
-    # 'SHOW_VIEW_ON_SITE': True,  # show/hide "View on site" button, default: True
-    # 'SHOW_BACK_BUTTON': False,  # show/hide "Back" button on changeform in header, default: False
-    # 'ENVIRONMENT': 'sample_app.environment_callback',  # environment name in header
-    # 'ENVIRONMENT_TITLE_PREFIX': 'sample_app.environment_title_prefix_callback',  # environment name prefix in title tag
-    # 'DASHBOARD_CALLBACK': 'sample_app.dashboard_callback',
-    # 'THEME': 'dark',  # Force theme: "dark" or "light". Will disable theme switcher
-    # 'LOGIN': {
-    #     'image': lambda request: static('sample/login-bg.jpg'),
-    #     'redirect_after': lambda request: reverse_lazy('admin:APP_MODEL_changelist'),
-    # },
     'STYLES': [
         lambda request: static('css/style.css'),
         lambda request: static('unfold/css/forms.css'),
     ],
-    # 'SCRIPTS': [
-    #     lambda request: static('js/script.js'),
-    # ],
     'BORDER_RADIUS': '6px',
     'COLORS': {
         'base': {
