@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -17,10 +16,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Stack',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('name', models.CharField(max_length=50, unique=True, verbose_name='Name')),
-                ('is_current_stack', models.BooleanField(default=True, verbose_name='Is current stack')),
-                ('time_range', models.ManyToManyField(to='core.timerange', verbose_name='Time Range')),
+                (
+                    'is_current_stack',
+                    models.BooleanField(default=True, verbose_name='Is current stack'),
+                ),
+                (
+                    'time_range',
+                    models.ManyToManyField(to='core.timerange', verbose_name='Time Range'),
+                ),
             ],
             options={
                 'verbose_name': 'Stack',
@@ -30,13 +40,40 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Job',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50, validators=[django.core.validators.MinLengthValidator(2)], verbose_name='Title')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
+                (
+                    'title',
+                    models.CharField(
+                        max_length=50,
+                        validators=[django.core.validators.MinLengthValidator(2)],
+                        verbose_name='Title',
+                    ),
+                ),
                 ('description', models.TextField(default='', verbose_name='Description')),
                 ('url', models.URLField(blank=True, null=True, verbose_name='Job URL')),
-                ('logo', models.URLField(blank=True, max_length=500, null=True, verbose_name='Company Logo URL')),
-                ('is_current_job', models.BooleanField(default=False, verbose_name='Is Current Job')),
-                ('time_range', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='core.timerange', verbose_name='Time Range')),
+                (
+                    'logo',
+                    models.URLField(
+                        blank=True, max_length=500, null=True, verbose_name='Company Logo URL'
+                    ),
+                ),
+                (
+                    'is_current_job',
+                    models.BooleanField(default=False, verbose_name='Is Current Job'),
+                ),
+                (
+                    'time_range',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to='core.timerange',
+                        verbose_name='Time Range',
+                    ),
+                ),
                 ('stack', models.ManyToManyField(to='jobs.stack', verbose_name='Stack')),
             ],
             options={

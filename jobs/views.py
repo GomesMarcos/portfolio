@@ -62,7 +62,9 @@ def get_job_by_title_or_stack(request):
     jobs = jobs.distinct().order_by('-time_range__start_date')
     # Filtro por ano, se fornecido
     if year:
-        jobs = jobs.filter(time_range__start_date__year=year) | jobs.filter(time_range__end_date__year=year)
+        jobs = jobs.filter(time_range__start_date__year=year) | jobs.filter(
+            time_range__end_date__year=year
+        )
 
     html = render_to_string('partials/job_search_results.html', {'jobs': jobs})
     return HttpResponse(html)

@@ -44,9 +44,9 @@ class TimeRange(models.Model):
 
         # end_date não pode ser anterior à start_date
         if self.end_date and self.start_date and self.end_date < self.start_date:
-            raise ValidationError(
-                {'end_date': _('A data de término não pode ser anterior à data de início.')}
-            )
+            raise ValidationError({
+                'end_date': _('A data de término não pode ser anterior à data de início.')
+            })
 
         # end_date não pode ser no futuro
         if self.end_date and self.end_date > timezone.now().date():

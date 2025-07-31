@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('core', '0005_alter_timerange_end_date_alter_timerange_start_date'),
     ]
@@ -14,12 +13,20 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='timerange',
-            options={'ordering': ('-end_date',), 'verbose_name': 'Time Range', 'verbose_name_plural': 'Time Ranges'},
+            options={
+                'ordering': ('-end_date',),
+                'verbose_name': 'Time Range',
+                'verbose_name_plural': 'Time Ranges',
+            },
         ),
         migrations.AlterField(
             model_name='timerange',
             name='end_date',
-            field=models.DateField(default=django.utils.timezone.now, validators=[core.models.max_today], verbose_name='End Date'),
+            field=models.DateField(
+                default=django.utils.timezone.now,
+                validators=[core.models.max_today],
+                verbose_name='End Date',
+            ),
         ),
         migrations.AlterField(
             model_name='timerange',

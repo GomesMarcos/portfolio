@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('jobs', '0003_stack_logo'),
     ]
@@ -13,11 +12,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Service',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('name', models.CharField(max_length=50, unique=True, verbose_name='Name')),
                 ('description', models.TextField(default='', verbose_name='Description')),
-                ('jobs', models.ManyToManyField(related_name='service', to='jobs.job', verbose_name='Job')),
-                ('stacks', models.ManyToManyField(related_name='service', to='jobs.stack', verbose_name='Stack')),
+                (
+                    'jobs',
+                    models.ManyToManyField(
+                        related_name='service', to='jobs.job', verbose_name='Job'
+                    ),
+                ),
+                (
+                    'stacks',
+                    models.ManyToManyField(
+                        related_name='service', to='jobs.stack', verbose_name='Stack'
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Service',

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('jobs', '0005_rename_stacks_service_stack_service_url_and_more'),
     ]

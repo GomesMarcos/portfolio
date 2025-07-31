@@ -24,17 +24,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Ensure the Tailwind CSS CLI is executable
-      - name: Install Tailwind CSS CLI (if not exists)
+      - name: Ruff routines
         run: |
-          if [ ! -f static/css/tailwindcss ]; then
-            curl -sLo static/css/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64
-            chmod +x static/css/tailwindcss
-          fi
-
-      - name: Build Tailwind CSS
-        run: |
-          ./static/css/tailwindcss -i static/css/input.css -o static/css/output.css --minify
+          ruff format .
+          ruff check . --fix --select E,F,W
 
       # Unit Tests
       - name: Run tests
