@@ -36,10 +36,6 @@ jobs:
         run: |
           ./static/css/tailwindcss -i static/css/input.css -o static/css/output.css --minify
 
-      - name: Run Django checks
-        run: |
-          python manage.py check
-
-    # Unit Tests
-    # - name: Run tests
-    #   run: python manage.py test
+      # Unit Tests
+      - name: Run tests
+        run: python manage.py test
