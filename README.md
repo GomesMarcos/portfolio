@@ -51,3 +51,7 @@ Run in terminal `docker-compose up --build -d`, and them, access `http://127.0.0
 
 ### !Important
 Remember to exclude superusers from your dumped data JSON file for security proposites.
+
+## Keep the standards!!
+This project is formatted by the [ruff.toml](ruff.toml) file.
+Every big change run: `ruff format .` on root of the project and them `ruff check .`
