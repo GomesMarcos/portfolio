@@ -38,10 +38,4 @@ jobs:
 
       # Unit Tests
       - name: Run tests
-        env:
-          POSTGRES_DB: test
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
         run: python manage.py test
