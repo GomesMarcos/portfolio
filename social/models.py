@@ -46,7 +46,7 @@ class Address(models.Model):
     def __str__(self):
         number = f'Nº {self.number}' if self.number is not None else ''
         complement = self.complement or ''
-        return f'{self.zipcode} - {self.street}, {number}, {complement}, {self.neighborhood}, {self.city} - {self.state}/{self.country}'
+        return f'{self.zipcode} - {self.street}, {number}, {complement}, {self.neighborhood}, {self.city} - {self.state}/{self.country}'  # noqa: E501
 
 
 class PhoneNumber(models.Model):
