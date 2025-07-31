@@ -98,7 +98,6 @@ class StackViewSet(TemplateView):
     @csrf_exempt
     def get_stack_by_name_or_worked_years(query):
         stack_search = query.POST.get('stack_search', '')
-        current = query.POST.get('current', False)
         worked_years = query.POST.get('worked_years', '')
 
         stack = Stack.objects.all().order_by('name')
