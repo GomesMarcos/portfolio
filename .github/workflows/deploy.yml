@@ -11,4 +11,6 @@ jobs:
     steps:
       - name: Call VPS webhook
         run: |
-          curl -X POST ${WEBHOOK_URL}
+          curl -X POST "${WEBHOOK_URL}"
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
