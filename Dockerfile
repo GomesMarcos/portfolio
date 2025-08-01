@@ -30,4 +30,8 @@ RUN /app/static/css/tailwindcss -i /app/static/css/input.css -o /app/static/css/
 
 COPY . .
 
+RUN mkdir -p /var/www/certbot/.well-known/acme-challenge
+RUN chown -R www-data:www-data /var/www/certbot
+
+
 CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000"]
