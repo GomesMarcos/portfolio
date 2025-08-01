@@ -55,3 +55,6 @@ Remember to exclude superusers from your dumped data JSON file for security prop
 ## Keep the standards!!
 This project is formatted by the [ruff.toml](ruff.toml) file.
 Every big change run: `ruff format .` on root of the project and them `ruff check .`
+
+## Add Certificate
+run `docker-compose exec nginx certbot --nginx -d gomesmarcos.dev.br`
