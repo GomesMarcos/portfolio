@@ -46,7 +46,8 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email ${CERTBOT_EMAIL} -d gomesystems.dev.br --agree-tos
+    command: certonly --webroot -w /var/www/certbot --email ${CERTBOT_EMAIL} -d gomesystems.dev.br --agree-tos
+    # To force renewal add --force-renewal flag to the command above
 
 volumes:
   postgres_data:
