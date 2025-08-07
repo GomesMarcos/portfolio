@@ -25,9 +25,7 @@ RUN if [ ! -d /app/static/css ]; then mkdir -p /app/static/css; fi && \
     if [ ! -f /app/static/css/tailwindcss ]; then curl -sLo /app/static/css/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64; fi && \
     chmod +x /app/static/css/tailwindcss
 
-# Compile CSS rules with Tailwind CSS
-RUN /app/static/css/tailwindcss -i /app/static/css/input.css -o /app/static/css/output.css --minify
-
 COPY . .
 
-CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Compile CSS rules with Tailwind CSS at container startup
+ENTRYPOINT ["/bin/sh", "-c", "/app/static/css/tailwindcss -i /app/static/css/input.css -o /app/static/css/output.css --minify && gunicorn backend.wsgi:application --bind 0.0.0.0:8000"]
