@@ -30,12 +30,24 @@ services:
       - web
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - static_volume:/app/productionfiles:ro
       - media_volume:/app/media:ro
       - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
 
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    env_file:
+      - .env
+    volumes:
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+    command: certonly --webroot -w /var/www/certbot --email ${CERTBOT_EMAIL} -d gomesystems.dev.br --agree-tos
+    # To force renewal add --force-renewal flag to the command above
 
 volumes:
   postgres_data:
