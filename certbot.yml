@@ -1,0 +1,9 @@
+version: "3.3"
+
+services:
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    env_file:
+      - .env
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email ${CERTBOT_EMAIL} -d gomesystems.dev.br --agree-tos

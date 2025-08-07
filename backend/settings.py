@@ -127,6 +127,10 @@ if ENV == 'prod':
         'HOST': config('POSTGRES_HOST'),
         'PORT': config('POSTGRES_PORT'),
     }
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 DATABASES = {
     'default': DB,

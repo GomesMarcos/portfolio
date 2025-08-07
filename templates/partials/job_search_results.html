@@ -15,8 +15,9 @@
       onclick="modal_job_details.showModal()">
       <div class="card-actions justify-end"></div>
       <time class="font-mono italic text-lg p-2 text-white rounded-t-lg bg-orange-300 time-badge">{{ job.time_range.start_date|date:'m/Y' }} - {{ job.time_range.end_date|date:'m/Y' }}</time>
+      
       <figure class="aspect-square">
-        <img class="bg-gray-500" src="{{ job.logo }}" alt="{{ job }} Logo" />
+        <img class="bg-gray-500 w-[200px] aspect-square ring-primary ring-offset-base-100 rounded ring-3" src="{{ job.logo }}" alt="{{ job }} Logo" />
       </figure>
 
       <div class="job-title">
