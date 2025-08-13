@@ -1,6 +1,9 @@
 # Dockerfile for Django application with Tailwind CSS and DaisyUI
 FROM python:3.13-slim
 
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
 # Install system dependencies
@@ -27,5 +30,9 @@ RUN if [ ! -d /app/static/css ]; then mkdir -p /app/static/css; fi && \
 
 COPY . .
 
-# Compile CSS rules with Tailwind CSS at container startup
-ENTRYPOINT ["/bin/sh", "-c", "/app/static/css/tailwindcss -i /app/static/css/input.css -o /app/static/css/output.css --minify && gunicorn backend.wsgi:application --bind 0.0.0.0:8000"]
+# Copy entrypoint.sh to container root
+COPY scripts/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Running entrypoint
+ENTRYPOINT ["scripts/entrypoint.sh"]
