@@ -30,9 +30,5 @@ RUN if [ ! -d /app/static/css ]; then mkdir -p /app/static/css; fi && \
 
 COPY . .
 
-# Copy entrypoint.sh to container root
-COPY scripts/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Running entrypoint
-ENTRYPOINT ["scripts/entrypoint.sh"]
+ENTRYPOINT ["./scripts/entrypoint.sh"]
